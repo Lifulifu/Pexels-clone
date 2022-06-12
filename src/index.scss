@@ -12,9 +12,17 @@ body {
   z-index: 100;
   display: flex;
   align-items: center;
+  color: white;
 
-  .logo-button {
-    cursor: pointer;
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .left-items, 
+  .right-items {
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -24,4 +32,19 @@ body {
   width: 100%;
   min-height: 500px;
   filter: grayscale(100%);
+  color: white;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .column {
+      max-width: 650px;
+    }
+
+    h1 {
+      margin-top: 150px;
+    }
+  }
 }
