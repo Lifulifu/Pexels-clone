@@ -1,0 +1,20 @@
+.trending-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  margin-top: 20px;
+
+  .title {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 10px;
+  }
+
+  .item {
+    color: white;
+    text-decoration: none;
+  }
+
+  .item:not(:last-child)::after {
+    content: ",\00a0";
+  }
+}

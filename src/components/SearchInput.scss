@@ -1,0 +1,36 @@
+.search-input {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+
+  input {
+    flex-grow: 1;
+    border: none;
+    font-size: 18px;
+    font-family: inherit;
+    padding: 15px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px 0 15px;
+    cursor: pointer;
+  }
+
+  .icon {
+    color: #777;
+  }
+
+  .icon-container:hover .icon {
+    color: green;
+  }
+}

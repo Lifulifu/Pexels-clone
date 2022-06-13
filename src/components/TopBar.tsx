@@ -1,4 +1,5 @@
 import React from 'react'
+import './TopBar.scss'
 
 import { Container } from '@mui/system'
 import { Button } from '@mui/material'
@@ -13,7 +14,7 @@ import { FiMoreHorizontal } from 'react-icons/fi'
 export default function TopBar() {
   return (
     <div className='topbar'>
-      <Container className='container' maxWidth='lg'>
+      <Container className='container' maxWidth='xl'>
         <span className='left-items'>
           <LogoButton />
         </span>
