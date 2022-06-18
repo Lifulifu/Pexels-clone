@@ -1,0 +1,8 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+
+  .gallery-item {
+    width: 300px;
+  }
+}

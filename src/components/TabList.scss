@@ -1,0 +1,22 @@
+.tab-list {
+  --item-height: 48px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .item {
+    display: flex;
+    align-items: center;
+    color: #333;
+    padding: 0 calc(var(--item-height) / 2);
+    height: var(--item-height);
+    border-radius: calc(var(--item-height) / 2);
+    cursor: pointer;
+  }
+
+  .item.active {
+    color: white;
+    background-color: black;
+  }
+}

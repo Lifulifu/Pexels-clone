@@ -1,5 +1,6 @@
-import React from 'react'
-import './TrendingList.scss'
+import React from 'react';
+import './TrendingList.scss';
+import { FiMoreHorizontal } from 'react-icons/fi';
 
 interface Props {
   items: string[]
@@ -9,11 +10,14 @@ export default function TrendingList({ items }: Props) {
   return (
     <div className='trending-list'>
       <span className='title'>Trending:</span>
-      {
-        items.map((item) => (
-          <a href="/" className='item'>{item}</a>
-        ))
-      }
+      <span className='item-container'>
+        {
+          items.map((item) => (
+            <a key={item} href="/" className='item'>{item}</a>
+          ))
+        }
+      </span>
+      <FiMoreHorizontal className='more-icon' />
     </div>
   )
 }
