@@ -1,17 +1,17 @@
 .search-input {
   display: flex;
   align-items: stretch;
-  width: 100%;
   border-radius: 10px;
-  overflow: hidden;
   background-color: white;
 
   input {
-    flex-grow: 1;
+    flex: 1 0;
     border: none;
     font-size: 18px;
     font-family: inherit;
     padding: 15px;
+    background: none;
+    overflow: hidden;
   }
 
   input:focus {

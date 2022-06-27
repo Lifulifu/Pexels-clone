@@ -20,6 +20,14 @@ function App() {
 
   const [trendingItems, setTrendingItems] = useState<string[]>([]);
   const [tabItems, setTabItems] = useState<string[]>([]);
+  const [isScrollOnTop, setIsScrollOnTop] = useState<boolean>(true);
+
+  const onScroll = () => {
+    if (window.pageYOffset === 0)
+      setIsScrollOnTop(true);
+    else
+      setIsScrollOnTop(false);
+  }
 
   useEffect(() => {
     setTrendingItems([
@@ -28,12 +36,16 @@ function App() {
     setTabItems([
       'Home', 'Discover', 'Videas', 'Leaderboard', 'Challenges'
     ]);
-  })
+
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
 
-      <TopBar />
+      <TopBar theme={isScrollOnTop ? 'transparent' : 'contained'} />
 
       <div className='banner'>
         <div className='banner-bg'></div>
@@ -48,7 +60,9 @@ function App() {
 
       <TabList items={tabItems} />
 
-    </ThemeProvider>
+      <div style={{ height: '100vh' }}></div>
+
+    </ThemeProvider >
   );
 }
 
