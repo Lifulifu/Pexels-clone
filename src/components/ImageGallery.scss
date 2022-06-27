@@ -1,0 +1,19 @@
+.image-gallery {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.image-gallery-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.image-gallery-item {
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+}

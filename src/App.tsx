@@ -10,8 +10,19 @@ import TopBar from './components/TopBar';
 import SearchInput from './components/SearchInput';
 import TrendingList from './components/TrendingList';
 import TabList, { TabListItem } from './components/TabList';
-import Gallery from './components/Gallery';
-import { getRandomImages } from './utils/util';
+import ImageGallery, { ImageData } from './components/ImageGallery';
+import { getRandomImages, ImageAPIData } from './utils/util';
+
+
+async function getImageItemDatas(n: number): Promise<ImageData[]> {
+  const newImages = await getRandomImages(n);
+  return newImages.map((data: ImageAPIData) => ({
+    id: data.id,
+    url: data.download_url,
+    w: data.width,
+    h: data.height,
+  }))
+}
 
 const theme = createTheme({
   typography: {
@@ -20,13 +31,15 @@ const theme = createTheme({
 })
 
 const sortbyItems = ['Hotest', 'Newest'];
+const MORE_IMAGES_COUNT = 10;
 
 function App() {
 
   const [trendingItems, setTrendingItems] = useState<string[]>([]);
   const [tabItems, setTabItems] = useState<TabListItem[]>([]);
   const [sortby, setSortby] = useState<string>(sortbyItems[0]);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageDatas, setImageDatas] = useState<ImageData[]>([]);
+  const [isScrollOnTop, setIsScrollOnTop] = useState<boolean>(true);
 
   const onTabItemChanged = (tabName: string) => {
     setTabItems(tabItems.map((item) => {
@@ -36,6 +49,19 @@ function App() {
         item.isActive = false;
       return item
     }))
+  }
+
+  const onScroll = () => {
+    if (window.pageYOffset === 0)
+      setIsScrollOnTop(true);
+    else
+      setIsScrollOnTop(false);
+  }
+
+  const extendImageDatas = (n: number) => {
+    getImageItemDatas(n).then((moreImages) => {
+      setImageDatas((imageDatas) => [...imageDatas, ...moreImages])
+    });
   }
 
   useEffect(() => {
@@ -49,13 +75,18 @@ function App() {
       { name: 'Leaderboard', isActive: false },
       { name: 'Challenges', isActive: false },
     ]);
-    setImageUrls(getRandomImages(20));
+
+    extendImageDatas(MORE_IMAGES_COUNT);
+
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
     <ThemeProvider theme={theme}>
 
-      <TopBar />
+      <TopBar theme={isScrollOnTop ? 'transparent' : 'contained'} />
 
       <div className='banner'>
         <div className='banner-bg'></div>
@@ -85,7 +116,7 @@ function App() {
           </Select>
         </div>
 
-        <Gallery images={imageUrls} />
+        <ImageGallery imageDatas={imageDatas} />
 
       </Container>
     </ThemeProvider>

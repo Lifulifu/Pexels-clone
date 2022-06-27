@@ -1,23 +1,19 @@
 import React from 'react'
+import './TopBar.scss'
+
 import { Button } from '@mui/material'
+
 
 interface Props {
   children?: React.ReactNode,
-  primary?: boolean,
-  secondary?: boolean,
+  variant?: string,
+  className?: string,
   [others: string]: any
 }
 
-export default function TopBarItem({ children, primary, secondary, ...otherProps }: Props) {
+export default function TopBarItem({ children, variant, className, ...otherProps }: Props) {
   return (
-    <Button style={{
-      fontFamily: 'Plus Jakarta Sans',
-      fontSize: '16px',
-      color: primary ? 'black' : 'inherit',
-      backgroundColor: primary ? 'white' : 'none',
-      textTransform: 'none',
-      padding: '10px 15px 10px 15px'
-    }} {...otherProps}>
+    <Button className={`topbar-item ${className} ${variant?.length ? variant : 'text'}`} {...otherProps}>
       {children}
     </Button>
   )
