@@ -11,7 +11,7 @@ import SearchInput from './components/SearchInput';
 import TrendingList from './components/TrendingList';
 import TabList, { TabListItem } from './components/TabList';
 import Gallery from './components/Gallery';
-import IMAGE_URLS from './assets/images-url.json';
+import { getRandomImages } from './utils/util';
 
 const theme = createTheme({
   typography: {
@@ -26,6 +26,7 @@ function App() {
   const [trendingItems, setTrendingItems] = useState<string[]>([]);
   const [tabItems, setTabItems] = useState<TabListItem[]>([]);
   const [sortby, setSortby] = useState<string>(sortbyItems[0]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const onTabItemChanged = (tabName: string) => {
     setTabItems(tabItems.map((item) => {
@@ -48,6 +49,7 @@ function App() {
       { name: 'Leaderboard', isActive: false },
       { name: 'Challenges', isActive: false },
     ]);
+    setImageUrls(getRandomImages(20));
   }, [])
 
   return (
@@ -83,7 +85,7 @@ function App() {
           </Select>
         </div>
 
-        <Gallery images={IMAGE_URLS.urls} />
+        <Gallery images={imageUrls} />
 
       </Container>
     </ThemeProvider>
