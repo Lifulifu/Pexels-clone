@@ -10,19 +10,9 @@ import TopBar from './components/TopBar';
 import SearchInput from './components/SearchInput';
 import TrendingList from './components/TrendingList';
 import TabList, { TabListItem } from './components/TabList';
-import ImageGallery, { ImageData } from './components/ImageGallery';
-import { getRandomImages, ImageAPIData } from './utils/util';
+import ImageGallery from './components/ImageGallery';
+import { getRandomImageDatas, ImageData } from './utils/util';
 
-
-async function getImageItemDatas(n: number): Promise<ImageData[]> {
-  const newImages = await getRandomImages(n);
-  return newImages.map((data: ImageAPIData) => ({
-    id: data.id,
-    url: data.download_url,
-    w: data.width,
-    h: data.height,
-  }))
-}
 
 const theme = createTheme({
   typography: {
@@ -59,9 +49,7 @@ function App() {
   }
 
   const extendImageDatas = (n: number) => {
-    getImageItemDatas(n).then((moreImages) => {
-      setImageDatas((imageDatas) => [...imageDatas, ...moreImages])
-    });
+    setImageDatas((old) => old.concat(getRandomImageDatas(n)))
   }
 
   useEffect(() => {

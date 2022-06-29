@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './ImageGallery.scss'
-import { argmin } from '../utils/util'
-
-export interface ImageData {
-  id: string,
-  url: string,
-  w: number,
-  h: number
-}
+import { argmin, ImageData } from '../utils/util'
 
 interface ImageGalleryItemProps {
   imageData: ImageData
@@ -48,7 +41,7 @@ function ImageGalleryCol({ imageDatas, gap }: ImageGalleryColProps) {
 
 export default function ImageGallery({ imageDatas, columns = 3, vGap = "2em", hGap = "2em" }: ImageGalleryProps) {
 
-  const [columnsData, setColumnsData] = useState<ImageData[][]>(new Array(columns).fill(null).map(_ => new Array()));
+  const [columnsData, setColumnsData] = useState<ImageData[][]>(new Array(columns).fill(null).map(_ => []));
 
   useEffect(() => {
     const columnsAccumHeight: number[] = new Array(columns).fill(0);

@@ -8,13 +8,25 @@ export interface ImageAPIData {
   download_url: string
 }
 
-export async function getRandomImages(n: number = 1): Promise<ImageAPIData[]> {
-  const url = `https://picsum.photos/v2/list?page=2&limit=${n}`;
-  let res = await fetch(url);
-  if (res)
-    return res.json();
-  else
-    return [];
+export interface ImageData {
+  url: string,
+  w: number,
+  h: number
+}
+
+export function randomInt(min: number, max: number) {
+  return min + Math.floor(Math.random() * (max - min));
+}
+
+export function getRandomImageDatas(n: number = 1): ImageData[] {
+  return new Array(n).fill(null).map((_) => {
+    const w = randomInt(30, 60) * 10;
+    const h = randomInt(30, 60) * 10;
+    return {
+      w, h,
+      url: `https://picsum.photos/${w}/${h}`
+    }
+  })
 }
 
 export function argmin(arr: number[]): number {
