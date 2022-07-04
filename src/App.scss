@@ -47,3 +47,23 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+
+// gallery responsive
+
+.three-cols-gallery {
+  display: block;
+}
+
+.two-cols-gallery {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .three-cols-gallery {
+    display: none;
+  }
+
+  .two-cols-gallery {
+    display: block;
+  }
+}

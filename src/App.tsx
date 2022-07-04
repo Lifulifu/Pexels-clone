@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss'
+import throttle from 'lodash-es/throttle';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
@@ -30,6 +31,7 @@ function App() {
   const [sortby, setSortby] = useState<string>(sortbyItems[0]);
   const [imageDatas, setImageDatas] = useState<ImageData[]>([]);
   const [isScrollOnTop, setIsScrollOnTop] = useState<boolean>(true);
+  const [galleryBottomReached, setGalleryBottomReached] = useState<boolean>(false);
 
   const onTabItemChanged = (tabName: string) => {
     setTabItems(tabItems.map((item) => {
@@ -48,13 +50,19 @@ function App() {
       setIsScrollOnTop(false);
   }
 
-  const extendImageDatas = (n: number) => {
+  const extendImageDatas = throttle((n: number) => {
     setImageDatas((old) => old.concat(getRandomImageDatas(n)))
-  }
+  }, 1000)
+
+  useEffect(() => {
+    if (!galleryBottomReached) return;
+    extendImageDatas(MORE_IMAGES_COUNT);
+    setGalleryBottomReached(false);
+  }, [galleryBottomReached])
 
   useEffect(() => {
     setTrendingItems([
-      'business', 'food', 'clothing', 'lifu', 'forest'
+      'business', 'food', 'clothing', 'forest'
     ]);
     setTabItems([
       { name: 'Home', isActive: true },
@@ -104,7 +112,12 @@ function App() {
           </Select>
         </div>
 
-        <ImageGallery imageDatas={imageDatas} />
+        <div className='three-cols-gallery'>
+          <ImageGallery columns={3} imageDatas={imageDatas} setBottomReached={setGalleryBottomReached} />
+        </div>
+        <div className='two-cols-gallery'>
+          <ImageGallery columns={2} imageDatas={imageDatas} setBottomReached={setGalleryBottomReached} />
+        </div>
 
       </Container>
     </ThemeProvider>
